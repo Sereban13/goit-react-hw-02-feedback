@@ -53,6 +53,7 @@ export class App extends Component {
 
     return (
       <div>
+        <h1>Hello world</h1>
         <Section title="Please leave your feedback">
           <FeedbackOptios
             options={feedback}
