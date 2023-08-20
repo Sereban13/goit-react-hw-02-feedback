@@ -1,25 +1,10 @@
-// export const App = () => {
-//   return (
-//     <div
-//       style={{
-//         height: '100vh',
-//         display: 'flex',
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         fontSize: 40,
-//         color: '#010101'
-//       }}
-//     >
-//       React homework template
-//     </div>
-//   );
-// };
-
 import { Component } from 'react';
 import Statistics from './Statistics/Statistics';
 import FeedbackOptios from './FeedbackOptions/FeedbackOptions';
 import Notification from './Notification/Notification';
 import Section from './Section/Section';
+import { AppSection } from './App.styled';
+import { GlobalStyle } from './GlobalStyled';
 
 export class App extends Component {
   state = {
@@ -41,10 +26,14 @@ export class App extends Component {
 
   countPositiveFeedbackPercentage = () => {
     const { good } = this.state;
-    const PositiveFeedback = Math.round(
+    const positiveFeedback = Math.round(
       (good / this.countTotalFeedback()) * 100
     );
-    return PositiveFeedback;
+    if (positiveFeedback === 0) {
+      return '0';
+    } else {
+      return positiveFeedback;
+    }
   };
 
   render() {
@@ -52,8 +41,7 @@ export class App extends Component {
     const feedback = Object.keys(this.state);
 
     return (
-      <div>
-        <h1>Hello world</h1>
+      <AppSection>
         <Section title="Please leave your feedback">
           <FeedbackOptios
             options={feedback}
@@ -62,7 +50,7 @@ export class App extends Component {
         </Section>
         <Section title="Statistics">
           {this.countTotalFeedback() === 0 ? (
-            <Notification message="There is no feedback" />
+            <Notification message="There is no feedback for this moment" />
           ) : (
             <Statistics
               good={good}
@@ -73,7 +61,8 @@ export class App extends Component {
             />
           )}
         </Section>
-      </div>
+        <GlobalStyle />
+      </AppSection>
     );
   }
 }
